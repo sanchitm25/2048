@@ -8,8 +8,8 @@ import javax.swing.JLabel;
 
 public class Square extends JLabel {
     private int value;
-    private int xComp;
-    private int yComp;
+    private int xComp = 80;
+    private int yComp = 80;
 
     private static HashMap<Integer, Image> blocks = generateHashmap();
 
