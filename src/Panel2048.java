@@ -2,6 +2,9 @@ import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.io.File;
 import java.io.IOException;
+import java.awt.KeyboardFocusManager;
+import java.awt.KeyEventDispatcher;
+import java.awt.event.KeyEvent;
 
 import javax.imageio.ImageIO;
 import javax.swing.JLabel;
@@ -22,8 +25,32 @@ public class Panel2048 extends JPanel {
 
         generateSquare();
 
-        this.addKeyListener(new MyListener());
-        this.setFocusable(true);
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
+            @Override
+            public boolean dispatchKeyEvent(KeyEvent e) {
+                if (KeyEvent.KEY_PRESSED == e.getID()) {
+                    switch (e.getKeyCode()) {
+                        case 37:
+                            System.out.println("Left");
+                            generateSquare();
+                            break;
+                        case 38:
+                            System.out.println("Up");
+                            generateSquare();
+                            break;
+                        case 39:
+                            System.out.println("Right");
+                            generateSquare();
+                            break;
+                        case 40:
+                            System.out.println("Down");
+                            generateSquare();
+                            break;
+                    }
+                }
+                return true;
+            }
+        });
     }
 
     protected void MoveLeft() {
@@ -54,6 +81,7 @@ public class Panel2048 extends JPanel {
                     continue;
                 } else {
                     blocks[i][j].setBounds(13 + (92 * i), 13 + (92 * j), 80, 80);
+                    System.out.println("Yo?");
                     background.add(blocks[i][j]);
                 }
             }
