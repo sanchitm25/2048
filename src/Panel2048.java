@@ -69,6 +69,10 @@ public class Panel2048 extends JPanel {
                 blocks[rand1][rand2] = square;
                 squareLocation = false;
             }
+
+            if (squareLocation == false) {
+                background.add(blocks[rand1][rand2]);
+            }
         } while (squareLocation);
 
         updateGrid();
@@ -82,7 +86,6 @@ public class Panel2048 extends JPanel {
                 } else {
                     blocks[i][j].setBounds(13 + (92 * i), 13 + (92 * j), 80, 80);
                     System.out.println("Yo?");
-                    background.add(blocks[i][j]);
                 }
             }
         }
