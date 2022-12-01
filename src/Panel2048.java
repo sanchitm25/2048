@@ -23,6 +23,7 @@ public class Panel2048 extends JPanel {
         generateSquare();
 
         this.addKeyListener(new MyListener());
+        this.setFocusable(true);
     }
 
     private void generateSquare() {
