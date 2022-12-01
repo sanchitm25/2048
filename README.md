@@ -1,5 +1,6 @@
 # 2048
 
-Replica of 2048.
-\n
-Made entirely in Java.
+<p>
+  Replica of 2048.
+  Made entirely in Java.
+</p>
