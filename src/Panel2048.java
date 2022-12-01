@@ -85,7 +85,6 @@ public class Panel2048 extends JPanel {
                     continue;
                 } else {
                     blocks[i][j].setBounds(13 + (92 * i), 13 + (92 * j), 80, 80);
-                    System.out.println("Yo?");
                 }
             }
         }
