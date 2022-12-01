@@ -26,7 +26,11 @@ public class Panel2048 extends JPanel {
         this.setFocusable(true);
     }
 
-    private void generateSquare() {
+    protected void MoveLeft() {
+        System.out.println("MoveLeft");
+    }
+
+    protected void generateSquare() {
         boolean squareLocation = true;
 
         do {

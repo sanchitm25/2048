@@ -7,8 +7,8 @@ public class MyListener extends KeyAdapter {
     }
 
     @Override
-    public void keyPressed(KeyEvent f) {
-        switch (f.getKeyCode()) {
+    public void keyPressed(KeyEvent e) {
+        switch (e.getKeyCode()) {
             case 37:
                 System.out.println("Left");
                 break;
@@ -22,13 +22,5 @@ public class MyListener extends KeyAdapter {
                 System.out.println("Down");
                 break;
         }
-        // System.out.println("keyPressed");
-        // System.out.println(f.getKeyCode());
-        // if (f.getKeyCode() == KeyEvent.VK_RIGHT) {
-        // System.out.println("Right key typed");
-        // }
-        // if (f.getKeyCode() == KeyEvent.VK_LEFT) {
-        // System.out.println("Left key typed");
-        // }
     }
 }
