@@ -8,30 +8,12 @@ import javax.swing.JLabel;
 
 public class Square extends JLabel {
     private int value;
-    private int xComp = 80;
-    private int yComp = 80;
 
     private static HashMap<Integer, Image> blocks = generateHashmap();
 
     public Square(int value) {
         super();
         setValue(value);
-    }
-
-    public int getxComp() {
-        return xComp;
-    }
-
-    public void setxComp(int xComp) {
-        this.xComp = xComp;
-    }
-
-    public int getyComp() {
-        return yComp;
-    }
-
-    public void setyComp(int yComp) {
-        this.yComp = yComp;
     }
 
     public int getValue() {
@@ -48,8 +30,23 @@ public class Square extends JLabel {
         }
     }
 
-    public void addSquare(Square square) {
-        setValue(this.value + square.getValue());
+    public void clearSquare() {
+        this.setIcon(null);
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(this.value);
+    }
+
+    public static Square mergeSquares(Square square1, Square square2) {
+        if (square1.getValue() == square2.getValue()) {
+            square1.setValue(square1.getValue() + square2.getValue());
+        } else {
+            return null;
+        }
+
+        return square1;
     }
 
     private static HashMap<Integer, Image> generateHashmap() {
