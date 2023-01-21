@@ -30,50 +30,84 @@ public class Panel2048 extends JPanel {
             public boolean dispatchKeyEvent(KeyEvent e) {
                 if (KeyEvent.KEY_PRESSED == e.getID()) {
                     switch (e.getKeyCode()) {
-                        case 37:
-                            System.out.println("Left");
+                        case 37: // Left
+                            moveLeft();
                             generateSquare();
                             break;
-                        case 38:
-                            System.out.println("Up");
+                        case 38: // Up
+                            moveUp();
+                            // generateSquare();
+                            break;
+                        case 39: // Right
                             generateSquare();
                             break;
-                        case 39:
-                            System.out.println("Right");
-                            generateSquare();
-                            break;
-                        case 40:
-                            System.out.println("Down");
+                        case 40: // Down
                             generateSquare();
                             break;
                     }
                 }
-                return true;
+                return false;
             }
         });
     }
 
-    protected void MoveLeft() {
+    private void moveLeft() {
         System.out.println("MoveLeft");
+        for (int i = 0; i < 4; i++) {
+
+        }
     }
 
-    protected void generateSquare() {
-        boolean squareLocation = true;
+    private void moveUp() {
+        // System.out.println("MoveUp");
 
-        do {
+        for (int i = 0; i < 4; i++) { // i = column
+            for (int j = 0; j < 4; j++) { // j = row
+                if (blocks[i][j] != null) {
+                    for (int k = (j - 1); k > -1; k--) { // Start looking at row above current row
+                        System.out.println(k);
+                        if (blocks[i][k] != null) { // k = Row currently being looked at
+                            System.out.println("Not Null");
+                            if (blocks[i][k].getValue() == blocks[i][j].getValue()) {
+                                System.out.println("Same");
+                                // blocks[i][k] = Square.mergeSquares(blocks[i][k], blocks[i][j]);
+                                blocks[i][k].setValue(blocks[i][k].getValue() * 2);
+                                blocks[i][j].clearSquare();
+                                blocks[i][j] = null;
+                            } else {
+                                System.out.println("Not Same");
+                                blocks[i][k + 1] = blocks[i][j];
+                                blocks[i][j] = null;
+                            }
+                            break;
+                        } else if (k == 0) {
+                            blocks[i][0] = blocks[i][j];
+                            blocks[i][j] = null;
+                            break;
+                        } else {
+                            System.out.println("ERROR");
+                        }
+                        System.out.println();
+                    }
+                }
+            }
+        }
+
+        updateGrid();
+    }
+
+    private void generateSquare() {
+        while (true) {
             int rand1 = (int) (Math.random() * 4);
             int rand2 = (int) (Math.random() * 4);
 
             if (blocks[rand1][rand2] == null) {
                 Square square = new Square(2);
                 blocks[rand1][rand2] = square;
-                squareLocation = false;
-            }
-
-            if (squareLocation == false) {
                 background.add(blocks[rand1][rand2]);
+                break;
             }
-        } while (squareLocation);
+        }
 
         updateGrid();
     }
@@ -81,9 +115,7 @@ public class Panel2048 extends JPanel {
     private void updateGrid() {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                if (blocks[i][j] == null) {
-                    continue;
-                } else {
+                if (blocks[i][j] != null) {
                     blocks[i][j].setBounds(13 + (92 * i), 13 + (92 * j), 80, 80);
                 }
             }
