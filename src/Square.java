@@ -26,7 +26,7 @@ public class Square extends JLabel {
         try {
             this.setIcon(new javax.swing.ImageIcon(blocks.get(value)));
         } catch (IndexOutOfBoundsException e) {
-
+            e.printStackTrace();
         }
     }
 

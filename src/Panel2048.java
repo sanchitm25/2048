@@ -36,12 +36,14 @@ public class Panel2048 extends JPanel {
                             break;
                         case 38: // Up
                             moveUp();
-                            // generateSquare();
+                            generateSquare();
                             break;
                         case 39: // Right
+                            moveRight();
                             generateSquare();
                             break;
                         case 40: // Down
+                            moveDown();
                             generateSquare();
                             break;
                     }
@@ -52,40 +54,176 @@ public class Panel2048 extends JPanel {
     }
 
     private void moveLeft() {
-        System.out.println("MoveLeft");
-        for (int i = 0; i < 4; i++) {
-
+        clearGrid();
+    
+        for (int j = 0; j < 4; j++) { // j = row
+            for (int k = 0; k < 4; k++) {
+                for (int i = 0; i < 3; i++) { // i = column
+                    if (blocks[i][j] != null) {
+                        blocks[i+1][j] = blocks[i][j].mergeSquares(blocks[i+1][j]);
+                    } else {
+                        blocks[i][j] = blocks[i+1][j];
+                        blocks[i+1][j] = null;
+                    }
+                }
+            }
+            // for (int i = 0; i < 3; i++) { // i = column
+            //     if (blocks[i][j] != null) {
+            //         blocks[i+1][j] = blocks[i][j].mergeSquares(blocks[i+1][j]);
+            //     } else {
+            //         blocks[i][j] = blocks[i+1][j];
+            //         blocks[i+1][j] = null;
+            //     }
+            // }
+    
+            // for (int i = 0; i < 2; i++) { // i = column
+            //     if (blocks[i][j] != null) {
+            //         blocks[i+1][j] = blocks[i][j].mergeSquares(blocks[i+1][j]);
+            //     } else {
+            //         blocks[i][j] = blocks[i+1][j];
+            //         blocks[i+1][j] = null;
+            //     }
+            // }
+    
+            // if (blocks[0][j] != null) {
+            //     blocks[1][j] = blocks[0][j].mergeSquares(blocks[1][j]);
+            // } else {
+            //     blocks[0][j] = blocks[1][j];
+            //     blocks[1][j] = null;
+            // }
         }
+    
+        updateGrid();
     }
 
     private void moveUp() {
+        clearGrid();
+
         for (int i = 0; i < 4; i++) { // i = column
-            for (int j = 0; j < 3; j++) { // j = row
-                if (blocks[i][j] != null) {
-                    blocks[i][j+1] = blocks[i][j].mergeSquares(blocks[i][j+1]);
-                } else {
-                    blocks[i][j] = blocks[i][j+1];
-                    blocks[i][j+1] = null;
+            for (int k = 0; k < 4; k++) {
+                for (int j = 0; j < 3; j++) { // j = row
+                    if (blocks[i][j] != null) {
+                        blocks[i][j+1] = blocks[i][j].mergeSquares(blocks[i][j+1]);
+                    } else {
+                        blocks[i][j] = blocks[i][j+1];
+                        blocks[i][j+1] = null;
+                    }
                 }
             }
+            // for (int j = 0; j < 3; j++) { // j = row
+            //     if (blocks[i][j] != null) {
+            //         blocks[i][j+1] = blocks[i][j].mergeSquares(blocks[i][j+1]);
+            //     } else {
+            //         blocks[i][j] = blocks[i][j+1];
+            //         blocks[i][j+1] = null;
+            //     }
+            // }
 
-            for (int j = 0; j < 2; j++) { // j = row
-                if (blocks[i][j] != null) {
-                    blocks[i][j+1] = blocks[i][j].mergeSquares(blocks[i][j+1]);
-                } else {
-                    blocks[i][j] = blocks[i][j+1];
-                    blocks[i][j+1] = null;
-                }
-            }
+            // for (int j = 0; j < 2; j++) { // j = row
+            //     if (blocks[i][j] != null) {
+            //         blocks[i][j+1] = blocks[i][j].mergeSquares(blocks[i][j+1]);
+            //     } else {
+            //         blocks[i][j] = blocks[i][j+1];
+            //         blocks[i][j+1] = null;
+            //     }
+            // }
 
-            if (blocks[i][0] != null) {
-                blocks[i][1] = blocks[i][0].mergeSquares(blocks[i][1]);
-            } else {
-                blocks[i][0] = blocks[i][1];
-                blocks[i][1] = null;
-            }
+            // if (blocks[i][0] != null) {
+            //     blocks[i][1] = blocks[i][0].mergeSquares(blocks[i][1]);
+            // } else {
+            //     blocks[i][0] = blocks[i][1];
+            //     blocks[i][1] = null;
+            // }
         }
 
+        updateGrid();
+    }
+
+    private void moveRight() {
+        clearGrid();
+    
+        for (int j = 0; j < 4; j++) { // j = row
+            for (int k = 0; k < 3; k++) {
+                for (int i = 3; i > 0; i--) { // i = column, from right to left
+                    if (blocks[i][j] != null) {
+                        blocks[i-1][j] = blocks[i][j].mergeSquares(blocks[i-1][j]);
+                    } else {
+                        blocks[i][j] = blocks[i-1][j];
+                        blocks[i-1][j] = null;
+                    }
+                }
+            }
+
+            // for (int i = 3; i > 0; i--) { // i = column, from right to left
+            //     if (blocks[i][j] != null) {
+            //         blocks[i-1][j] = blocks[i][j].mergeSquares(blocks[i-1][j]);
+            //     } else {
+            //         blocks[i][j] = blocks[i-1][j];
+            //         blocks[i-1][j] = null;
+            //     }
+            // }
+    
+            // for (int i = 3; i > 1; i--) { // i = column, from right to left
+            //     if (blocks[i][j] != null) {
+            //         blocks[i-1][j] = blocks[i][j].mergeSquares(blocks[i-1][j]);
+            //     } else {
+            //         blocks[i][j] = blocks[i-1][j];
+            //         blocks[i-1][j] = null;
+            //     }
+            // }
+    
+            // if (blocks[3][j] != null) {
+            //     blocks[2][j] = blocks[3][j].mergeSquares(blocks[2][j]);
+            // } else {
+            //     blocks[3][j] = blocks[2][j];
+            //     blocks[2][j] = null;
+            // }
+        }
+    
+        updateGrid();
+    }
+
+    private void moveDown() {
+        clearGrid();
+    
+        for (int i = 0; i < 4; i++) { // i = column
+            for (int k = 0; k < 4; k++) {
+                for (int j = 3; j > 0; j--) { // j = row
+                    if (blocks[i][j] != null) {
+                        blocks[i][j-1] = blocks[i][j].mergeSquares(blocks[i][j-1]);
+                    } else {
+                        blocks[i][j] = blocks[i][j-1];
+                        blocks[i][j-1] = null;
+                    }
+                }
+            }
+
+            // for (int j = 3; j > 0; j--) { // j = row
+            //     if (blocks[i][j] != null) {
+            //         blocks[i][j-1] = blocks[i][j].mergeSquares(blocks[i][j-1]);
+            //     } else {
+            //         blocks[i][j] = blocks[i][j-1];
+            //         blocks[i][j-1] = null;
+            //     }
+            // }
+    
+            // for (int j = 3; j > 1; j--) { // j = row
+            //     if (blocks[i][j] != null) {
+            //         blocks[i][j-1] = blocks[i][j].mergeSquares(blocks[i][j-1]);
+            //     } else {
+            //         blocks[i][j] = blocks[i][j-1];
+            //         blocks[i][j-1] = null;
+            //     }
+            // }
+    
+            // if (blocks[i][3] != null) {
+            //     blocks[i][2] = blocks[i][3].mergeSquares(blocks[i][2]);
+            // } else {
+            //     blocks[i][3] = blocks[i][2];
+            //     blocks[i][2] = null;
+            // }
+        }
+    
         updateGrid();
     }
 
@@ -105,17 +243,25 @@ public class Panel2048 extends JPanel {
         updateGrid();
     }
 
+    private void clearGrid() {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (blocks[i][j] != null) {
+                    background.remove(blocks[i][j]);
+                }
+            }
+        }
+    }
+
     private void updateGrid() {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 if (blocks[i][j] != null) {
+                    background.add(blocks[i][j]);
                     blocks[i][j].setBounds(13 + (92 * i), 13 + (92 * j), 80, 80);
                 }
             }
         }
-
-        this.repaint();
-
         printGrid();
     }
 
