@@ -39,14 +39,17 @@ public class Square extends JLabel {
         return String.valueOf(this.value);
     }
 
-    public static Square mergeSquares(Square square1, Square square2) {
-        if (square1.getValue() == square2.getValue()) {
-            square1.setValue(square1.getValue() + square2.getValue());
-        } else {
+    public Square mergeSquares(Square square) {
+        if (square == null) {
+            return null;
+        }
+        
+        if (this.getValue() == square.getValue()) {
+            this.setValue(square.getValue() + this.getValue());
             return null;
         }
 
-        return square1;
+        return square;
     }
 
     private static HashMap<Integer, Image> generateHashmap() {

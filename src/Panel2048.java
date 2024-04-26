@@ -61,35 +61,62 @@ public class Panel2048 extends JPanel {
     private void moveUp() {
         // System.out.println("MoveUp");
 
+        // for (int i = 0; i < 4; i++) { // i = column
+        //     for (int j = 0; j < 4; j++) { // j = row
+        //         if (blocks[i][j] != null) {
+        //             for (int k = (j - 1); k > -1; k--) { // Start looking at row above current row
+        //                 System.out.println(k);
+        //                 if (blocks[i][k] != null) { // k = Row currently being looked at
+        //                     System.out.println("Not Null");
+        //                     if (blocks[i][k].getValue() == blocks[i][j].getValue()) {
+        //                         System.out.println("Same");
+        //                         // blocks[i][k] = Square.mergeSquares(blocks[i][k], blocks[i][j]);
+        //                         blocks[i][k].setValue(blocks[i][k].getValue() * 2);
+        //                         blocks[i][j].clearSquare();
+        //                         blocks[i][j] = null;
+        //                     } else {
+        //                         System.out.println("Not Same");
+        //                         blocks[i][k + 1] = blocks[i][j];
+        //                         blocks[i][j] = null;
+        //                     }
+        //                     break;
+        //                 } else if (k == 0) {
+        //                     blocks[i][0] = blocks[i][j];
+        //                     blocks[i][j] = null;
+        //                     break;
+        //                 } else {
+        //                     System.out.println("ERROR");
+        //                 }
+        //                 System.out.println();
+        //             }
+        //         }
+        //     }
+        // }
+
         for (int i = 0; i < 4; i++) { // i = column
-            for (int j = 0; j < 4; j++) { // j = row
+            for (int j = 0; j < 3; j++) { // j = row
                 if (blocks[i][j] != null) {
-                    for (int k = (j - 1); k > -1; k--) { // Start looking at row above current row
-                        System.out.println(k);
-                        if (blocks[i][k] != null) { // k = Row currently being looked at
-                            System.out.println("Not Null");
-                            if (blocks[i][k].getValue() == blocks[i][j].getValue()) {
-                                System.out.println("Same");
-                                // blocks[i][k] = Square.mergeSquares(blocks[i][k], blocks[i][j]);
-                                blocks[i][k].setValue(blocks[i][k].getValue() * 2);
-                                blocks[i][j].clearSquare();
-                                blocks[i][j] = null;
-                            } else {
-                                System.out.println("Not Same");
-                                blocks[i][k + 1] = blocks[i][j];
-                                blocks[i][j] = null;
-                            }
-                            break;
-                        } else if (k == 0) {
-                            blocks[i][0] = blocks[i][j];
-                            blocks[i][j] = null;
-                            break;
-                        } else {
-                            System.out.println("ERROR");
-                        }
-                        System.out.println();
-                    }
+                    blocks[i][j+1] = blocks[i][j].mergeSquares(blocks[i][j+1]);
+                } else {
+                    blocks[i][j] = blocks[i][j+1];
+                    blocks[i][j+1] = null;
                 }
+            }
+
+            for (int j = 0; j < 2; j++) { // j = row
+                if (blocks[i][j] != null) {
+                    blocks[i][j+1] = blocks[i][j].mergeSquares(blocks[i][j+1]);
+                } else {
+                    blocks[i][j] = blocks[i][j+1];
+                    blocks[i][j+1] = null;
+                }
+            }
+
+            if (blocks[i][0] != null) {
+                blocks[i][1] = blocks[i][0].mergeSquares(blocks[i][1]);
+            } else {
+                blocks[i][0] = blocks[i][1];
+                blocks[i][1] = null;
             }
         }
 
@@ -117,9 +144,27 @@ public class Panel2048 extends JPanel {
             for (int j = 0; j < 4; j++) {
                 if (blocks[i][j] != null) {
                     blocks[i][j].setBounds(13 + (92 * i), 13 + (92 * j), 80, 80);
+                } else {
+                    
                 }
             }
         }
+
+        printGrid();
+    }
+
+    private void printGrid() {
+        for (int j = 0; j < 4; j++) {
+            for (int i = 0; i < 4; i++) {
+                if (blocks[i][j] != null) {
+                    System.out.print(blocks[i][j].toString());
+                } else {
+                    System.out.print("0");
+                }
+            }
+            System.out.print("\n");
+        }
+        System.out.print("\n");
     }
 
     private static JLabel background() {
