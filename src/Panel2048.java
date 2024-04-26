@@ -59,40 +59,6 @@ public class Panel2048 extends JPanel {
     }
 
     private void moveUp() {
-        // System.out.println("MoveUp");
-
-        // for (int i = 0; i < 4; i++) { // i = column
-        //     for (int j = 0; j < 4; j++) { // j = row
-        //         if (blocks[i][j] != null) {
-        //             for (int k = (j - 1); k > -1; k--) { // Start looking at row above current row
-        //                 System.out.println(k);
-        //                 if (blocks[i][k] != null) { // k = Row currently being looked at
-        //                     System.out.println("Not Null");
-        //                     if (blocks[i][k].getValue() == blocks[i][j].getValue()) {
-        //                         System.out.println("Same");
-        //                         // blocks[i][k] = Square.mergeSquares(blocks[i][k], blocks[i][j]);
-        //                         blocks[i][k].setValue(blocks[i][k].getValue() * 2);
-        //                         blocks[i][j].clearSquare();
-        //                         blocks[i][j] = null;
-        //                     } else {
-        //                         System.out.println("Not Same");
-        //                         blocks[i][k + 1] = blocks[i][j];
-        //                         blocks[i][j] = null;
-        //                     }
-        //                     break;
-        //                 } else if (k == 0) {
-        //                     blocks[i][0] = blocks[i][j];
-        //                     blocks[i][j] = null;
-        //                     break;
-        //                 } else {
-        //                     System.out.println("ERROR");
-        //                 }
-        //                 System.out.println();
-        //             }
-        //         }
-        //     }
-        // }
-
         for (int i = 0; i < 4; i++) { // i = column
             for (int j = 0; j < 3; j++) { // j = row
                 if (blocks[i][j] != null) {
@@ -144,11 +110,11 @@ public class Panel2048 extends JPanel {
             for (int j = 0; j < 4; j++) {
                 if (blocks[i][j] != null) {
                     blocks[i][j].setBounds(13 + (92 * i), 13 + (92 * j), 80, 80);
-                } else {
-                    
                 }
             }
         }
+
+        this.repaint();
 
         printGrid();
     }
