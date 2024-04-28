@@ -154,7 +154,8 @@ public class Panel2048 extends JPanel {
                     try {
                         Image image = ImageIO.read(new File("pictures/win.png"));
                         winMessage.setIcon(new javax.swing.ImageIcon(image));
-                        winMessage.setBounds(25, 65, 300, 250);
+                        winMessage.setBounds(40, 65, 300, 250);
+                        background.add(winMessage);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -179,7 +180,8 @@ public class Panel2048 extends JPanel {
         try {
             Image image = ImageIO.read(new File("pictures/lose.png"));
             loseMessage.setIcon(new javax.swing.ImageIcon(image));
-            loseMessage.setBounds(25, 65, 300, 250);
+            loseMessage.setBounds(40, 65, 300, 250);
+            background.add(loseMessage);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -188,19 +190,27 @@ public class Panel2048 extends JPanel {
     }
 
     private void generateSquare() {
-        while (true) {
-            int rand1 = (int) (Math.random() * 4);
-            int rand2 = (int) (Math.random() * 4);
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (blocks[i][j] == null) {
+                    while (true) {
+                        int rand1 = (int) (Math.random() * 4);
+                        int rand2 = (int) (Math.random() * 4);
+            
+                        if (blocks[rand1][rand2] == null) {
+                            Square square = new Square(2);
+                            blocks[rand1][rand2] = square;
+                            background.add(blocks[rand1][rand2]);
+                            break;
+                        }
+                    }
 
-            if (blocks[rand1][rand2] == null) { // Fix infinite loop issue
-                Square square = new Square(2);
-                blocks[rand1][rand2] = square;
-                background.add(blocks[rand1][rand2]);
-                break;
+                    updateGrid();
+
+                    return;
+                }
             }
         }
-
-        updateGrid();
     }
 
     private void clearGrid() {
