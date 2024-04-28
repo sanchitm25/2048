@@ -48,9 +48,6 @@ public class Panel2048 extends JPanel {
                             moveDown();
                             generateSquare();
                             break;
-                        case 10: // Enter
-                            generateSquare();
-                            break;
                     }
                 }
                 return false;
@@ -182,6 +179,7 @@ public class Panel2048 extends JPanel {
             loseMessage.setIcon(new javax.swing.ImageIcon(image));
             loseMessage.setBounds(40, 65, 300, 250);
             background.add(loseMessage);
+            background.setComponentZOrder(loseMessage, 0);
         } catch (IOException e) {
             e.printStackTrace();
         }
